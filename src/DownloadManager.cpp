@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <boost/filesystem.hpp>
+
 namespace Helper {
 	HANDLE DownloadManager::sm_hExitEvent = NULL;
 
@@ -82,6 +84,11 @@ namespace Helper {
 
 		//Clear Console
 		Globals::CLS( m_hStdOut );
+
+		//Create the download diretory if it does not exist.
+		boost::filesystem::path strFolder( m_strDownloadDirectory );
+		boost::filesystem::create_directories( strFolder );
+
 		curl_global_init( CURL_GLOBAL_ALL );
 	}
 
